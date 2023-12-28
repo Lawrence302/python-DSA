@@ -1,12 +1,9 @@
-# implementation of a binary search tree
-
+#implementation of binary search tree
 class Node:
     def __init__(self,data):
         self.data = data
         self.left = None
         self.right = None
-
-# tree
 
 class BinaryTree:
     def __init__(self):
@@ -14,11 +11,9 @@ class BinaryTree:
 
     def insert(self,data):
         new_node = Node(data)
-
         if self.root is None:
             self.root = new_node
             return
-        
         current_node = self.root
 
         while True:
@@ -33,7 +28,39 @@ class BinaryTree:
                     current_node.right = new_node
                     break
                 else:
-                    current_node = current_node.right     
+                    current_node = current_node.right
+
+    # finding the min node
+    def min(self):
+        current_node = self.root
+        while current_node.left is not None:
+            current_node = current_node.left
+
+        return current_node.data
+
+    # finding the max node
+    def max(self):
+        current_node = self.root
+        while current_node.right is not None:
+            current_node = current_node.right
+
+        return current_node.data
+
+    # searching for a value on the tree
+    def search(self,value):
+        current_node = self.root
+        while current_node is not None:
+            if current_node.data == value:
+                return f" found {current_node.data}"
+
+            if value < current_node.data:
+                current_node = current_node.left
+            else:
+                current_node = current_node.right
+        return " node not found "
+
+
+
 
 tree = BinaryTree()
 tree.insert(5)
@@ -47,11 +74,10 @@ tree.insert(6)
 
 
 print(tree.root.data)
-print(tree.root.right.data)
-print(tree.root.right.left.data)
-print(tree.root.right.right.data)
-print(" ")
-print(" ")
-print(tree.root.left.data)
-print(tree.root.left.left.data)
-print(tree.root.left.left.left.data)
+print(f"the minimum number from the tree is {tree.min()}")
+print(f"the maximum number from the tree is {tree.max()}")
+
+print(tree.search(4))
+print(tree.search(8))
+print(tree.search(2))
+print(tree.search(9))
